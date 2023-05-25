@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Student;
+use App\People;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        $students = People::all();
         if ($students->count() > 0){
         $data = [
             'status'=>200,
@@ -40,7 +40,7 @@ class StudentController extends Controller
             'errors'=>$validator->messages()
         ], 422);
     }else{
-        $student = Student::create([
+        $student = People::create([
             'name' =>$request->name,
             'email' =>$request->email,
             'phone' =>$request->phone,
@@ -61,7 +61,7 @@ class StudentController extends Controller
     }
 
     public function show($id){
-        $student=Student::find($id);
+        $student=People::find($id);
         if ($student){
             return response()->json([
                 'status'=>200,
@@ -75,7 +75,7 @@ class StudentController extends Controller
         }
     }
     public function edit($id){
-        $student=Student::find($id);
+        $student=People::find($id);
         if ($student){
             return response()->json([
                 'status'=>200,
@@ -102,7 +102,7 @@ class StudentController extends Controller
                 'errors'=>$validator->messages()
             ], 422);
         }else{
-            $student = Student::find($id);
+            $student = People::find($id);
 
             if ($student){
                 $student -> update([
@@ -125,7 +125,7 @@ class StudentController extends Controller
     }
 
     public function destroy($id){
-        $student = Student::find($id);
+        $student = People::find($id);
         if ($student){
             $student->delete();
             return response()->json([
